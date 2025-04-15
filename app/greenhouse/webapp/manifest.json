@@ -1,0 +1,179 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "com.greenhouseapp.greenhouse",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:lrop",
+      "version": "1.17.3",
+      "toolsId": "de00b148-84bc-4247-aed5-3c319e1aa019"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/odata/v4/greenhouse/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "odataVersion": "4.0"
+        }
+      }
+    },
+    "crossNavigation": {
+      "inbounds": {
+        "greenhouse-manage": {
+          "semanticObject": "greenhouse",
+          "action": "manage",
+          "title": "{{greenhouse-manage.flpTitle}}",
+          "subTitle": "{{greenhouse-manage.flpSubtitle}}",
+          "signature": {
+            "parameters": {},
+            "additionalParameters": "allowed"
+          }
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": true,
+    "dependencies": {
+      "minUI5Version": "1.134.1",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.fe.templates": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "com.greenhouseapp.greenhouse.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      },
+      "@i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "uri": "i18n/i18n.properties"
+      }
+    },
+    "resources": {
+      "css": []
+    },
+    "routing": {
+      "config": {},
+      "routes": [
+        {
+          "pattern": ":?query:",
+          "name": "GreenhouseList",
+          "target": "GreenhouseList"
+        },
+        {
+          "pattern": "Greenhouse({key}):?query:",
+          "name": "GreenhouseObjectPage",
+          "target": "GreenhouseObjectPage"
+        },
+        {
+          "pattern": "Greenhouse({key})/sensors({key2}):?query:",
+          "name": "SensorsObjectPage",
+          "target": "SensorsObjectPage"
+        }
+      ],
+      "targets": {
+        "GreenhouseList": {
+          "type": "Component",
+          "id": "GreenhouseList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Greenhouse",
+              "variantManagement": "Page",
+              "navigation": {
+                "Greenhouse": {
+                  "detail": {
+                    "route": "GreenhouseObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "tableSettings": {
+                    "type": "ResponsiveTable"
+                  }
+                }
+              },
+              "hideFilterBar": false
+            }
+          }
+        },
+        "GreenhouseObjectPage": {
+          "type": "Component",
+          "id": "GreenhouseObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Greenhouse",
+              "navigation": {
+                "sensors": {
+                  "detail": {
+                    "route": "SensorsObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "SensorsObjectPage": {
+          "type": "Component",
+          "id": "SensorsObjectPage",
+          "name": "sap.fe.templates.ObjectPage",
+          "options": {
+            "settings": {
+              "editableHeaderContent": false,
+              "contextPath": "/Greenhouse/sensors"
+            }
+          }
+        }
+      }
+    }
+  },
+  "sap.fiori": {
+    "registrationIds": [],
+    "archeType": "transactional"
+  }
+}

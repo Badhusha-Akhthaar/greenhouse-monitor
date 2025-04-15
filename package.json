@@ -17,22 +17,22 @@
     "@sap/cds-dk": "^8"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds-serve",
+    "watch-greenhouse": "cds watch --open greenhouse/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
-      "[hybrid]" : {
+      "[hybrid]": {
         "auth": "mocked",
         "db": "hana"
       },
-      "[development]" : {
+      "[development]": {
         "auth": "dummy",
         "db": {
-          "kind": "sqlite",
-          "schema_evolution" : "auto"
+          "kind": "sqlite"
         }
       },
-      "[production]" : {
+      "[production]": {
         "auth": "dummy",
         "db": "hana"
       },
@@ -44,5 +44,8 @@
     "sql": {
       "native_hana_associations": false
     }
-  }
+  },
+  "sapux": [
+    "app/greenhouse"
+  ]
 }
