@@ -20,7 +20,7 @@ type Address
     longitude : Decimal not null @mandatory;
 }
 
-@assert.unique:{ sensor_id: [greenhouse,sensor_id]}
+@assert.unique:{ sensor_id: [sensor_id]}
 entity Sensors : managed
 {
     key ID : UUID;
