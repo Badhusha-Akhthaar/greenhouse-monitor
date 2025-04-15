@@ -133,10 +133,16 @@
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "ResponsiveTable"
+                  },
+                  "columns": {
+                    "DataField::ID": {
+                      "width": "25rem"
+                    }
                   }
                 }
               },
-              "hideFilterBar": false
+              "hideFilterBar": false,
+              "initialLoad": "Enabled"
             }
           }
         },
@@ -152,6 +158,15 @@
                 "sensors": {
                   "detail": {
                     "route": "SensorsObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "sensors/@com.sap.vocabularies.UI.v1.LineItem#i18nSensors": {
+                  "columns": {
+                    "DataField::ID": {
+                      "width": "25rem"
+                    }
                   }
                 }
               }

@@ -53,7 +53,7 @@ annotate service.Greenhouse with @(
         {
             $Type : 'UI.DataField',
             Value : ID,
-            Label : 'Id',
+            Label : '{i18n>Id}',
         },
         {
             $Type : 'UI.DataField',
@@ -82,6 +82,14 @@ annotate service.Greenhouse with @(
         location_country,
         location_state,
     ],
+    UI.HeaderInfo : {
+        Title : {
+            $Type : 'UI.DataField',
+            Value : greenhouse_id,
+        },
+        TypeName : '',
+        TypeNamePlural : '',
+    },
 );
 
 annotate service.Greenhouse with {
@@ -98,8 +106,70 @@ annotate service.Sensors with @(
     UI.LineItem #i18nSensors : [
         {
             $Type : 'UI.DataField',
+            Value : ID,
+            Label : 'ID',
+        },
+        {
+            $Type : 'UI.DataField',
             Value : sensor_id,
             Label : '{i18n>SensorId}',
+        },
+    ],
+    UI.HeaderInfo : {
+        Title : {
+            $Type : 'UI.DataField',
+            Value : sensor_id,
+        },
+        TypeName : '',
+        TypeNamePlural : '',
+    },
+    UI.Facets : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : '{i18n>SensorDetails}',
+            ID : 'i18nSensorDetails',
+            Target : '@UI.FieldGroup#i18nSensorDetails',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            Label : '{i18n>Measures}',
+            ID : 'i18nMeasures',
+            Target : 'measures/@UI.LineItem#i18nMeasures',
+        },
+    ],
+    UI.FieldGroup #i18nSensorDetails : {
+        $Type : 'UI.FieldGroupType',
+        Data : [
+            {
+                $Type : 'UI.DataField',
+                Value : sensor_id,
+                Label : '{i18n>SensorId}',
+            },
+        ],
+    },
+);
+
+annotate service.Measure with @(
+    UI.LineItem #i18nMeasures : [
+        {
+            $Type : 'UI.DataField',
+            Value : measure,
+            Label : '{i18n>MeasureName}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : uom,
+            Label : '{i18n>UnitOfMeasurement}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : min,
+            Label : '{i18n>MinimumThreshold}',
+        },
+        {
+            $Type : 'UI.DataField',
+            Value : max,
+            Label : '{i18n>MaximumThreshold}',
         },
     ]
 );
