@@ -3,6 +3,7 @@ using {greenhouseapp as schema} from '../db/schema';
 @path: 'analytical'
 service AnalyticalService {
     entity Greenhouse as projection on schema.Greenhouse;
+    @cds.redirection.target: true
     entity Sensors    as projection on schema.Sensors;
     entity Measure    as projection on schema.Measure;
     entity ExcursionAnalytics as projection on schema.Excursion {
@@ -11,6 +12,12 @@ service AnalyticalService {
         sensor,
         count(*) as excursionCount
     } group by sensor.ID,sensor.greenhouse.ID;
+
+    
+    entity SensorAnalytics as projection on schema.Sensors {
+        greenhouse.ID as greenhouse_id,
+        count(*) as anomalySensorCount
+    } where state = 'ANOMALY';
 }
 
 // annotate AnalyticalService.Greenhouse with @(
