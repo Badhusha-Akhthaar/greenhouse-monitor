@@ -40,6 +40,7 @@ entity Sensors : managed
     measures : Composition of many Measure on measures.sensor = $self;
     telemetries : Composition of many Telemetry on telemetries.sensor = $self;
     excursions : Composition of many Excursion on excursions.sensor = $self;
+    state : SensorState;
 }
 
 annotate Sensors with @assert.unique :
@@ -95,4 +96,10 @@ type Threashold : String enum
 {
     ABOVE = 'Above Threshold';
     BELOW = 'Below Threshold';
+}
+
+type SensorState : String enum
+{
+    ANOMALY = 'Anomaly';
+    NORMAL = 'Normal';
 }
