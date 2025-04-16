@@ -14,10 +14,24 @@ service AnalyticalService {
     } group by sensor.ID,sensor.greenhouse.ID;
 
     
-    entity SensorAnalytics as projection on schema.Sensors {
+    entity AnomalySensors as projection on schema.Sensors {
         greenhouse.ID as greenhouse_id,
         count(*) as anomalySensorCount
     } where state = 'ANOMALY';
+
+    entity NormalSensors as projection on schema.Sensors {
+        greenhouse.ID as greenhouse_id,
+        count(*) as anomalySensorCount
+    } where state = 'NORMAL';
+
+
+    entity TemperatureReadings as projection on schema.Telemetry{
+        sensor,
+        sensor.ID,
+        timestamp,
+        telemetryMeasures.measure,
+        telemetryMeasures.value
+    } group by sensor.ID,telemetryMeasures.measure,timestamp;
 }
 
 // annotate AnalyticalService.Greenhouse with @(
