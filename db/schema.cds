@@ -38,6 +38,7 @@ entity Sensors : managed
         @mandatory;
     greenhouse : Association to one Greenhouse;
     measures : Composition of many Measure on measures.sensor = $self;
+    telemetries : Composition of many Telemetry on telemetries.sensor = $self;
 }
 
 annotate Sensors with @assert.unique :
@@ -65,3 +66,19 @@ annotate Measure with @assert.unique :
 {
     measure : [ sensor, measure ],
 };
+
+entity Telemetry
+{
+    key ID : UUID;
+    timestamp : Timestamp;
+    telemetryMeasures : Composition of many TelemetryMeasures on telemetryMeasures.telemetry = $self;
+    sensor : Association to one Sensors;
+}
+
+entity TelemetryMeasures
+{
+    key ID : UUID;
+    measure : String(20);
+    value : Decimal;
+    telemetry : Association to one Telemetry;
+}
