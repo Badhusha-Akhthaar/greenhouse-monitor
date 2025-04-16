@@ -90,6 +90,7 @@ entity Excursion
     key ID : UUID;
     error_type : Threashold;
     sensor : Association to one Sensors;
+    timestamp : Timestamp;
 }
 
 type Threashold : String enum
