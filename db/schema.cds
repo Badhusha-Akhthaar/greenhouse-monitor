@@ -39,6 +39,7 @@ entity Sensors : managed
     greenhouse : Association to one Greenhouse;
     measures : Composition of many Measure on measures.sensor = $self;
     telemetries : Composition of many Telemetry on telemetries.sensor = $self;
+    excursions : Composition of many Excursion on excursions.sensor = $self;
 }
 
 annotate Sensors with @assert.unique :
@@ -81,4 +82,17 @@ entity TelemetryMeasures
     measure : String(20);
     value : Decimal;
     telemetry : Association to one Telemetry;
+}
+
+entity Excursion
+{
+    key ID : UUID;
+    error_type : Threashold;
+    sensor : Association to one Sensors;
+}
+
+type Threashold : String enum
+{
+    ABOVE = 'Above Threshold';
+    BELOW = 'Below Threshold';
 }
