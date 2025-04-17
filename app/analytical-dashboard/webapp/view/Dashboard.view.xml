@@ -1,0 +1,17 @@
+<mvc:View xmlns:vbm="sap.ui.vbm" controllerName="greenhouseapp.analyticaldashboard.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <vbm:AnalyticMap id="sensorMap" width="100%" xmlns:l="sap.ui.layout" height="50%"
+				initialPosition="0;10;0">
+                <vbm:vos>
+                    <vbm:Spots id="sensorMapSpots" items="{/Greenhouse}">
+                        <vbm:Spot id="greenhouseLocation" position="8.641622;49.293696;0" type="Default"></vbm:Spot>
+                        <vbm:Spot id="wdfSpot" position="8.641622;49.293696;0"
+							click="onClickItem" contextMenu="onContextMenuItem">
+						</vbm:Spot>
+                    </vbm:Spots>
+                </vbm:vos>
+		</vbm:AnalyticMap>
+    </Page>
+</mvc:View>

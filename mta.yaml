@@ -63,9 +63,23 @@ modules:
       - comgreenhouseappgreenhouse.zip
       name: comgreenhouseappgreenhouse
       target-path: app/
+    - artifacts:
+      - greenhouseappanalyticaldashboard.zip
+      name: greenhouseappanalyticaldashboard
+      target-path: app/
 - name: comgreenhouseappgreenhouse
   type: html5
   path: app/greenhouse
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: greenhouseappanalyticaldashboard
+  type: html5
+  path: app/analytical-dashboard
   build-parameters:
     build-result: dist
     builder: custom

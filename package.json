@@ -19,7 +19,8 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-greenhouse": "cds watch --open greenhouse/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-greenhouse": "cds watch --open greenhouse/webapp/index.html?sap-ui-xx-viewCache=false",
+    "watch-analytical-dashboard": "cds watch --open analytical-dashboard/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
