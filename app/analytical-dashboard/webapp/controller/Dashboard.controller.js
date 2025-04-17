@@ -7,6 +7,12 @@ sap.ui.define([
     return Controller.extend("greenhouseapp.analyticaldashboard.controller.Dashboard", {
         onInit() {
             let oMap = this.getView().byId("sensorMapSpots")
+        },
+        onClickSpot(oEvent) {
+            let oSource = oEvent.getSource();
+        },
+        onClickItem(oEvent) {
+            let oSource = oEvent.getSource();
         }
     });
 });

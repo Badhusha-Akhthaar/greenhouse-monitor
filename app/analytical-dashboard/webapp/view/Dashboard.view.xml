@@ -1,17 +1,24 @@
-<mvc:View xmlns:vbm="sap.ui.vbm" controllerName="greenhouseapp.analyticaldashboard.controller.Dashboard"
+<mvc:View xmlns:layout="sap.ui.layout" xmlns:vbm="sap.ui.vbm" controllerName="greenhouseapp.analyticaldashboard.controller.Dashboard"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
+    <layout:FixFlex class="fixFlexFixedSize">
+        <layout:fixContent>
+            <Title text="Locations" class="sapUiTinyMargin" level="H1"></Title>
+        </layout:fixContent>
+        <layout:flexContent>
         <vbm:AnalyticMap id="sensorMap" width="100%" xmlns:l="sap.ui.layout" height="50%"
-				initialPosition="0;10;0">
+				initialPosition="78.17599977905806;9.93558085788087;0">
                 <vbm:vos>
-                    <vbm:Spots id="sensorMapSpots" items="{/Greenhouse}">
-                        <vbm:Spot id="greenhouseLocation" position="8.641622;49.293696;0" type="Default"></vbm:Spot>
-                        <vbm:Spot id="wdfSpot" position="8.641622;49.293696;0"
-							click="onClickItem" contextMenu="onContextMenuItem">
+                    <vbm:Spots items="{/Greenhouse}" click="onClickItem">
+						<vbm:Spot position="{location_longitude};{location_latitude};0"
+							 text="{greenhouse_id}" click="onClickSpot">
 						</vbm:Spot>
-                    </vbm:Spots>
+					</vbm:Spots>
                 </vbm:vos>
 		</vbm:AnalyticMap>
+        </layout:flexContent>
+    </layout:FixFlex>
+        
     </Page>
 </mvc:View>
