@@ -7,21 +7,26 @@ service AnalyticalService {
     entity Sensors    as projection on schema.Sensors;
     entity Measure    as projection on schema.Measure;
     entity ExcursionAnalytics as projection on schema.Excursion {
+        key ID,
         sensor,
         timestamp,
         count(*) as excursionCount: Integer
-    } group by sensor.ID,timestamp;
+    } group by ID,sensor.ID,timestamp;
 
     
     entity AnomalySensors as projection on schema.Sensors {
+        key ID,
         greenhouse.ID as greenhouse_id,
+        state,
         count(*) as anomalySensorCount: Integer
-    } group by greenhouse.ID,state having state = 'ANOMALY';
+    } group by ID,greenhouse.ID,state having state = 'ANOMALY';
 
     entity NormalSensors as projection on schema.Sensors {
+        key ID,
         greenhouse.ID as greenhouse_id,
+        state,
         count(*) as anomalySensorCount: Integer
-    } group by greenhouse.ID,state having state = 'NORMAL';
+    } group by ID,greenhouse.ID,state having state = 'NORMAL';
 
 
     entity TemperatureReadings as projection on schema.Telemetry{
