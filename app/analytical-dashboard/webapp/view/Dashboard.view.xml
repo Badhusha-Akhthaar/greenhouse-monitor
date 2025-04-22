@@ -2,9 +2,20 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
-    <layout:FixFlex class="fixFlexFixedSize">
+    <layout:FixFlex id="mapFlex" class="fixFlexFixedSize">
         <layout:fixContent>
-            <Title text="Locations" class="sapUiTinyMargin" level="H1"></Title>
+            <Panel id='settingsPanel' class="panelStyle" expandable="true" expanded="true" headerText="Selection Criteria" width="auto">
+                <content>
+                    <HBox >
+                    <VBox width="200px">
+                        <Label text="Sensor ID" design="Bold"></Label>
+                        <Select id="sensorsSelection" maxWidth="150px"></Select>
+                    </VBox>
+                    </HBox>
+                    
+                    
+                </content>
+            </Panel>
         </layout:fixContent>
         <layout:flexContent>
         <vbm:AnalyticMap id="sensorMap" width="100%" xmlns:l="sap.ui.layout" height="50%"
@@ -19,6 +30,12 @@
 		</vbm:AnalyticMap>
         </layout:flexContent>
     </layout:FixFlex>
-        
+    <!-- <layout:FixFlex id="chartFlex" class="fixFlexFixedSize">
+        <layout:fixContent>
+            <HBox id="chartSelections" class="">
+                <Select id="sensorsSelect"></Select>
+            </HBox>
+        </layout:fixContent>
+    </layout:FixFlex>    -->
     </Page>
 </mvc:View>

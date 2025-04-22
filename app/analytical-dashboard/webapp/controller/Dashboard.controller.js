@@ -9,7 +9,10 @@ sap.ui.define([
             let oMap = this.getView().byId("sensorMapSpots")
         },
         onClickSpot(oEvent) {
-            let oSource = oEvent.getSource();
+            let oBindingContext = oEvent.getSource().getBindingContext();
+            let greenhouse_key = oBindingContext.getProperty("ID")
+            let oModel = this.getView().getModel();
+            oModel.read(``)
         },
         onClickItem(oEvent) {
             let oSource = oEvent.getSource();
