@@ -25,9 +25,9 @@ type Address
         @mandatory;
     country : String(50) not null
         @mandatory;
-    latitude : Decimal not null
+    latitude : Decimal(9,6) not null
         @mandatory;
-    longitude : Decimal not null
+    longitude : Decimal(9,6) not null
         @mandatory;
 }
 
@@ -93,14 +93,14 @@ entity Excursion
     timestamp : Timestamp;
 }
 
-type Threashold : String enum
-{
-    ABOVE = 'Above Threshold';
-    BELOW = 'Below Threshold';
-}
-
 type SensorState : String enum
 {
     ANOMALY = 'Anomaly';
     NORMAL = 'Normal';
+}
+
+type Threashold : String enum
+{
+    ABOVE = 'Above Threshold';
+    BELOW = 'Below Threshold';
 }
