@@ -9,9 +9,13 @@ gen/
 node_modules/
 target/
 
+app/analytical-dashboard/dist
+app/greenhouse/dist
+
 # Web IDE, App Studio
 .che/
 .gen/
+.dist/
 
 # MTA
 *_mta_build_tmp
