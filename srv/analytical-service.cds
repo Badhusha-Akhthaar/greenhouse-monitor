@@ -3,38 +3,18 @@ using {greenhouseapp as schema} from '../db/schema';
 @path: 'analytical'
 service AnalyticalService {
     entity Greenhouse as projection on schema.Greenhouse;
-    @cds.redirection.target: true
+    // @cds.redirection.target: true
     entity Sensors    as projection on schema.Sensors;
     entity Measure    as projection on schema.Measure;
-    entity ExcursionAnalytics as projection on schema.Excursion {
-        key ID,
-        sensor,
-        timestamp,
-        count(*) as excursionCount: Integer
-    } group by ID,sensor.ID,timestamp;
-
-    
-    entity AnomalySensors as projection on schema.Sensors {
-        key ID,
-        greenhouse.ID as greenhouse_id,
-        state,
-        count(*) as anomalySensorCount: Integer
-    } group by ID,greenhouse.ID,state having state = 'ANOMALY';
-
-    entity NormalSensors as projection on schema.Sensors {
-        key ID,
-        greenhouse.ID as greenhouse_id,
-        state,
-        count(*) as anomalySensorCount: Integer
-    } group by ID,greenhouse.ID,state having state = 'NORMAL';
+    entity Excursion as projection on schema.Excursion;
 
 
-    entity TemperatureReadings as projection on schema.Telemetry{
-        key timestamp,
-        key telemetryMeasures.measure,
-        telemetryMeasures.value,
-        sensor,
-    } group by sensor.ID,telemetryMeasures.measure,timestamp,telemetryMeasures.value;
+    // entity TemperatureReadings as projection on schema.Telemetry{
+    //     key timestamp,
+    //     key telemetryMeasures.measure,
+    //     telemetryMeasures.value,
+    //     sensor,
+    // } group by sensor.ID,telemetryMeasures.measure,timestamp,telemetryMeasures.value;
 }
 
 // annotate AnalyticalService.Greenhouse with @(

@@ -145,6 +145,16 @@ annotate service.Sensors with @(
                 Value : sensor_id,
                 Label : '{i18n>SensorId}',
             },
+            {
+                $Type : 'UI.DataField',
+                Value : certificate,
+                Label : '{i18n>Certificate}',
+            },
+            {
+                $Type : 'UI.DataField',
+                Value : private_key,
+                Label : '{i18n>Privatekey}',
+            },
         ],
     },
 );
@@ -171,6 +181,19 @@ annotate service.Measure with @(
             Value : max,
             Label : '{i18n>MaximumThreshold}',
         },
+        {
+            $Type : 'UI.DataField',
+            Value : currentValue,
+            Label : '{i18n>CurrentValue}',
+        },
     ]
 );
+
+annotate service.Sensors with {
+    certificate @UI.MultiLineText : true
+};
+
+annotate service.Sensors with {
+    private_key @UI.MultiLineText : true
+};
 

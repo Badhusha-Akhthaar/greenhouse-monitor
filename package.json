@@ -6,6 +6,7 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@aws-sdk/client-iot": "^3.804.0",
     "@cap-js-community/odata-v2-adapter": "^1.14.3",
     "@cap-js/hana": "^1",
     "@sap/cds": "^8",

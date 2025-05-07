@@ -41,6 +41,8 @@ entity Sensors : managed
     telemetries : Composition of many Telemetry on telemetries.sensor = $self;
     excursions : Composition of many Excursion on excursions.sensor = $self;
     state : SensorState;
+    private_key : LargeString @readonly;
+    certificate : LargeString @readonly;
 }
 
 annotate Sensors with @assert.unique :
@@ -56,12 +58,12 @@ entity Measure : managed
         @mandatory;
     uom : String(5) not null
         @mandatory;
-    min : Decimal not null
+    min : Decimal(5,2) not null
         @mandatory;
-    max : Decimal not null
+    max : Decimal(5,2) not null
         @mandatory;
     sensor : Association to one Sensors;
-    currentValue : Decimal;
+    currentValue : Decimal(5,2);
 }
 
 annotate Measure with @assert.unique :
@@ -81,7 +83,7 @@ entity TelemetryMeasures
 {
     key ID : UUID;
     measure : String(20);
-    value : Decimal;
+    value : Decimal(5,2);
     telemetry : Association to one Telemetry;
 }
 
