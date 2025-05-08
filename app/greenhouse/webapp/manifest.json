@@ -180,7 +180,19 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Greenhouse/sensors"
+              "contextPath": "/Greenhouse/sensors",
+              "content": {
+                "header": {
+                  "actions": {
+                    "DataFieldForAction::GreenhouseService.activate": {
+                      "afterExecution": {
+                        "enableAutoScroll": true,
+                        "navigateToInstance": true
+                      }
+                    }
+                  }
+                }
+              }
             }
           }
         }

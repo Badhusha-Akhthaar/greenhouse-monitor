@@ -157,6 +157,13 @@ annotate service.Sensors with @(
             },
         ],
     },
+    UI.Identification : [
+        {
+            $Type : 'UI.DataFieldForAction',
+            Action : 'GreenhouseService.activate',
+            Label : '{i18n>Activate}',
+        },
+    ],
 );
 
 annotate service.Measure with @(

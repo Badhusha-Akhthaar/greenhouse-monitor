@@ -1,0 +1,4 @@
+GET http://localhost:4004/odata/v4/greenhouse/Sensors
+
+
+DELETE http://localhost:4004/odata/v4/greenhouse/Sensors(ID=d0c152ba-6ea5-4bb6-8118-49dcd562d43d,IsActiveEntity=true)
