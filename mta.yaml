@@ -3,159 +3,144 @@ ID: greenhouse_monitor
 description: A simple CAP project.
 version: 1.0.0
 modules:
-  - name: greenhouse_monitor-srv
-    type: nodejs
-    path: gen/srv
-    requires:
-      - name: greenhouse_monitor-auth
-      - name: greenhouse_monitor-db
-      - name: greenhouse_monitor-connectivity
-      - name: greenhouse_monitor-destination
-    provides:
-      - name: srv-api
-        properties:
-          srv-url: ${default-url}
-    parameters:
-      buildpack: nodejs_buildpack
-      instances: 1
-    build-parameters:
-      builder: npm-ci
-  - name: greenhouse_monitor-db-deployer
-    type: hdb
-    path: gen/db
-    requires:
-      - name: greenhouse_monitor-db
-    parameters:
-      buildpack: nodejs_buildpack
-  - name: greenhouse_monitor
-    type: approuter.nodejs
-    path: app/router
-    requires:
-      - name: srv-api
-        group: destinations
-        properties:
-          forwardAuthToken: true
-          name: srv-api
-          url: ~{srv-url}
-      - name: greenhouse_monitor-auth
-      - name: greenhouse_monitor-destination
-      - name: greenhouse_monitor-html5-runtime
-    provides:
-      - name: app-api
-        properties:
-          app-protocol: ${protocol}
-          app-uri: ${default-uri}
-    parameters:
-      disk-quota: 256M
-      keep-existing-routes: true
-      memory: 256M
-  - name: greenhouse_monitor-app-deployer
-    type: com.sap.application.content
-    path: gen
-    requires:
-      - name: greenhouse_monitor-html5-repo-host
-        parameters:
-          content-target: true
-    build-parameters:
-      build-result: app/
-      requires:
-        - artifacts:
-            - comgreenhouseappgreenhouse.zip
-          name: comgreenhouseappgreenhouse
-          target-path: app/
-        - artifacts:
-            - greenhouseappanalyticaldashboard.zip
-          name: greenhouseappanalyticaldashboard
-          target-path: app/
-  - name: comgreenhouseappgreenhouse
-    type: html5
-    path: app/greenhouse
-    build-parameters:
-      build-result: dist
-      builder: custom
-      commands:
-        - npm install
-        - npm run build:cf
-        - npm ci
-        - npm run build
-      supported-platforms:
-        []
-  - name: greenhouseappanalyticaldashboard
-    type: html5
-    path: app/analytical-dashboard
-    build-parameters:
-      build-result: dist
-      builder: custom
-      commands:
-        - npm install
-        - npm run build:cf
-        - npm ci
-        - npm run build
-      supported-platforms:
-        []
-  - name: greenhouse_monitorsensors
-    type: html5
-    path: app/sensors
-    build-parameters:
-      build-result: dist
-      builder: custom
-      commands:
-        - npm ci
-        - npm run build
-      supported-platforms:
-        []
-resources:
+- name: greenhouse_monitor-srv
+  type: nodejs
+  path: gen/srv
+  requires:
   - name: greenhouse_monitor-auth
-    type: org.cloudfoundry.managed-service
-    parameters:
-      config:
-        tenant-mode: dedicated
-        xsappname: greenhouse_monitor-${org}-${space}
-      path: ./xs-security.json
-      service: xsuaa
-      service-plan: application
   - name: greenhouse_monitor-db
-    type: com.sap.xs.hdi-container
-    parameters:
-      service: hana
-      service-plan: hdi-shared
   - name: greenhouse_monitor-connectivity
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: connectivity
-      service-plan: lite
   - name: greenhouse_monitor-destination
-    type: org.cloudfoundry.managed-service
-    parameters:
-      config:
-        HTML5Runtime_enabled: false
-        init_data:
-          instance:
-            destinations:
-              - Authentication: NoAuthentication
-                Name: ui5
-                ProxyType: Internet
-                Type: HTTP
-                URL: https://ui5.sap.com
-            existing_destinations_policy: update
-      service: destination
-      service-plan: lite
-  - name: greenhouse_monitor-html5-repo-host
-    type: org.cloudfoundry.managed-service
-    parameters:
-      service: html5-apps-repo
-      service-plan: app-host
+  provides:
+  - name: srv-api
+    properties:
+      srv-url: ${default-url}
+  parameters:
+    buildpack: nodejs_buildpack
+    instances: 1
+  build-parameters:
+    builder: npm-ci
+- name: greenhouse_monitor-db-deployer
+  type: hdb
+  path: gen/db
+  requires:
+  - name: greenhouse_monitor-db
+  parameters:
+    buildpack: nodejs_buildpack
+- name: greenhouse_monitor
+  type: approuter.nodejs
+  path: app/router
+  requires:
+  - name: srv-api
+    group: destinations
+    properties:
+      forwardAuthToken: true
+      name: srv-api
+      url: ~{srv-url}
+  - name: greenhouse_monitor-auth
+  - name: greenhouse_monitor-destination
   - name: greenhouse_monitor-html5-runtime
-    type: org.cloudfoundry.managed-service
+  provides:
+  - name: app-api
+    properties:
+      app-protocol: ${protocol}
+      app-uri: ${default-uri}
+  parameters:
+    disk-quota: 256M
+    keep-existing-routes: true
+    memory: 256M
+- name: greenhouse_monitor-app-deployer
+  type: com.sap.application.content
+  path: gen
+  requires:
+  - name: greenhouse_monitor-html5-repo-host
     parameters:
-      service: html5-apps-repo
-      service-plan: app-runtime
+      content-target: true
+  build-parameters:
+    build-result: app/
+    requires:
+    - artifacts:
+      - comgreenhouseappgreenhouse.zip
+      name: comgreenhouseappgreenhouse
+      target-path: app/
+    - artifacts:
+      - greenhouseappanalyticaldashboard.zip
+      name: greenhouseappanalyticaldashboard
+      target-path: app/
+- name: comgreenhouseappgreenhouse
+  type: html5
+  path: app/greenhouse
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: greenhouseappanalyticaldashboard
+  type: html5
+  path: app/analytical-dashboard
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: greenhouse_monitor-auth
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      tenant-mode: dedicated
+      xsappname: greenhouse_monitor-${org}-${space}
+    path: ./xs-security.json
+    service: xsuaa
+    service-plan: application
+- name: greenhouse_monitor-db
+  type: com.sap.xs.hdi-container
+  parameters:
+    service: hana
+    service-plan: hdi-shared
+- name: greenhouse_monitor-connectivity
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: connectivity
+    service-plan: lite
+- name: greenhouse_monitor-destination
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: false
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+    service: destination
+    service-plan: lite
+  requires:
+    - name: srv-api
+- name: greenhouse_monitor-html5-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-host
+- name: greenhouse_monitor-html5-runtime
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-plan: app-runtime
 parameters:
   deploy_mode: html5-repo
   enable-parallel-deployments: true
 build-parameters:
   before-all:
-    - builder: custom
-      commands:
-        - npm ci
-        - npx cds build --production
+  - builder: custom
+    commands:
+    - npm ci
+    - npx cds build --production

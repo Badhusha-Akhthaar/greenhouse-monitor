@@ -20,6 +20,7 @@
   },
   "scripts": {
     "start": "cds-serve",
+    "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "watch-greenhouse": "cds watch --open greenhouse/webapp/index.html?sap-ui-xx-viewCache=false",
     "watch-analytical-dashboard": "cds watch --open analytical-dashboard/webapp/index.html?sap-ui-xx-viewCache=false"
   },

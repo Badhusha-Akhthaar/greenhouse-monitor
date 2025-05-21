@@ -10,7 +10,7 @@
     ],
     "redirect-uris": [
       "http://*.localhost:4004/**",
-      "https://*.hana.ondemand.com/**",
+      "https://*.us10-001.hana.ondemand.com/**",
       "https://*.applicationstudio.cloud.sap/**"
     ]
   }
